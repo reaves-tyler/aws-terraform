@@ -1,22 +1,9 @@
-terraform {
-  cloud {
-    organization = "tylersi93"
-
-    workspaces {
-      name = "sourcestrike"
-    }
-  }
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.26.0"
-    }
-  }
+module "my-app-prod" {
+  source      = "./my-app"
+  environment = "production"
 }
 
-provider "aws" {
-  region     = var.region
-  access_key = var.access_key
-  secret_key = var.secret_key
+module "my-app-dev" {
+  source      = "./my-app"
+  environment = "development"
 }
