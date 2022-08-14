@@ -34,8 +34,10 @@ resource "aws_alb" "api" {
 
 resource "aws_alb_listener" "api_http" {
   load_balancer_arn = aws_alb.api.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = "arn:aws:acm:us-east-1:811466563163:certificate/a85ced26-466c-49a3-917c-76e4511ece00"
 
   default_action {
     type             = "forward"
@@ -44,5 +46,5 @@ resource "aws_alb_listener" "api_http" {
 }
 
 output "alb_url" {
-  value = "http://${aws_alb.api.dns_name}"
+  value = "https://${aws_alb.api.dns_name}"
 }
